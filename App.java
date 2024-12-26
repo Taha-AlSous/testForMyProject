@@ -10,7 +10,7 @@ public class App {
     
     public static void main(String[] args) throws Exception {
         System.out.println("Hello, World!");
-        // Second s=new Second();
+         Second s=new Second();
        // CreatAccount d =new CreatAccount();
         // ChoosePic c= new ChoosePic();
        
@@ -23,7 +23,7 @@ public class App {
         
         // }
         
-        Menu m=new Menu();
+         Menu m=new Menu();
         //LogIn.doLogin();
        // Cart c=new Cart();
         

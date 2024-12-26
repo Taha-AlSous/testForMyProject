@@ -132,6 +132,7 @@ public class Second extends JFrame implements ActionListener ,MouseListener {
 
         //add layerdPane to the frame
         this.add(layeredPane);
+        this.setLocationRelativeTo(null);
         this.setVisible(true);
         //
         
@@ -180,9 +181,15 @@ public class Second extends JFrame implements ActionListener ,MouseListener {
     //action listener
     @Override
     public void actionPerformed(ActionEvent e) {
+       
         if (e.getSource()==creatNewAccount)
-            {
-                CreatAccount d =new CreatAccount();
-            }
+        {
+            new CreatAccount();
+        }
+        if (e.getSource()==confirmButton)
+        {
+            new Menu();
+        }
+            
     }
 }

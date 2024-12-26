@@ -28,7 +28,7 @@ private JLabel mainBG;
         public AddMeal(){
         
             this.setSize(500,750);
-            this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             this.setResizable(false);
     
             layeredPane=new JLayeredPane();
@@ -49,7 +49,7 @@ private JLabel mainBG;
 
             chooseMealImage= new JButton("choose Meal Image");
             confirmButton= new JButton("confirm");
-            gotoMenuButton= new JButton("go to Menu");
+            gotoMenuButton= new JButton("cnfirm and go to Menu");
 
 
             ///////////
@@ -126,6 +126,7 @@ private JLabel mainBG;
 
             //add layerdPane to the frame
             this.add(layeredPane);
+            this.setLocationRelativeTo(null);
             this.setVisible(true);
             //
 }
@@ -144,6 +145,7 @@ private JLabel mainBG;
             }
             else if (e.getSource()==gotoMenuButton)
             {
+                Meal.Add(nameTextField.getText(), priceTextField.getText(), combonentTextField.getText(), ChoosePic.getmyImage());
                 new Menu();
                 this.setVisible(false);
             }

@@ -1,6 +1,5 @@
 import javax.swing.*;
 import javax.swing.border.LineBorder;
-import java.text.*;
 import java.awt.*;
 
 public class Cart extends JFrame {

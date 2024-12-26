@@ -43,8 +43,8 @@ public class Menu extends JFrame implements MouseListener{
     public Menu(){
         
         this.setSize(500,750);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setResizable(true);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.setResizable(false);
 
 
         layeredPane=new JLayeredPane();
@@ -143,7 +143,7 @@ public class Menu extends JFrame implements MouseListener{
         /// Price
         stagePriceLabel = new JLabel();
         stagePriceLabel.setBounds(125, 425, 250, 50);
-        stagePriceLabel.setText(Meal.meals.get(0).price);
+        stagePriceLabel.setText(Meal.meals.get(0).price + " $");
         stagePriceLabel.setForeground(new Color(242,186,0));
         stagePriceLabel.setBackground(new Color(31,25,27));
         stagePriceLabel.setBorder(new LineBorder(new Color(242,186,0),3));
@@ -214,7 +214,7 @@ public class Menu extends JFrame implements MouseListener{
     public void mouseClicked(MouseEvent e) {
         if (e.getSource()==stageIngredientsLabel)
         {
-            JOptionPane.showMessageDialog(this, stageMeal.combonent);
+            JOptionPane.showMessageDialog(null, stageMeal.combonent,"combonent",JOptionPane.OK_OPTION);
 
         }
         for (JLabel Label : allMealsLabels) {
@@ -229,7 +229,7 @@ public class Menu extends JFrame implements MouseListener{
 
                     stageImageLabel.setIcon(stageMeal.image);
                     stageNameLabel.setText(stageMeal.name);
-                    stagePriceLabel.setText(stageMeal.price);
+                    stagePriceLabel.setText(stageMeal.price + " $");
 
 
                     break;

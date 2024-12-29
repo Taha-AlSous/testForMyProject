@@ -26,7 +26,7 @@ public class ChoosePic extends JFrame implements MouseListener {
             imagePanel.setLayout(new GridLayout(0, 3, 10, 10)); 
     
                 File directory = new File("Images/mealsImagess");
-                // C:\Users\TAHA ALSOUS\Desktop\lastReppositry\testForMyProject\Images
+                // C:\Users\TAHA ALSOUS\Desktop\lastReppositry\testForMyProject\Images...
                 File[] files = directory.listFiles((dir, name) -> name.toLowerCase().endsWith(".jpg")|| name.toLowerCase().endsWith(".png"));
     
                 if (files != null) {

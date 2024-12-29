@@ -1,6 +1,8 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
@@ -9,7 +11,7 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
-public class AddMeal extends JFrame implements ActionListener{
+public class AddMeal extends JFrame implements ActionListener,KeyListener{
         private JLabel mainBG;
         private ImageIcon posterImage;
 
@@ -148,6 +150,7 @@ public class AddMeal extends JFrame implements ActionListener{
             priceTextField.setBounds(170, 240, 200, 30);
             priceTextField.setForeground(Color.BLACK);
             priceTextField.setFont(new Font("Comic Sans MS",Font.BOLD,15));
+            priceTextField.addKeyListener(this);
             layeredPane.add(priceTextField,JLayeredPane.PALETTE_LAYER);
             //combonentLabel
             combonentLabel.setBounds(50, 250, 200, 100);
@@ -389,6 +392,31 @@ public class AddMeal extends JFrame implements ActionListener{
         JOptionPane.showMessageDialog(null, "there are no meal with this name", "not existe", JOptionPane.ERROR_MESSAGE);
        
 
+    }
+
+
+
+    //key listener
+    @Override
+    public void keyTyped(KeyEvent e) {
+        char c=e.getKeyChar();
+        if (!Character.isDigit(c)&& c!='\b'&& c!=KeyEvent.VK_DELETE){
+            e.consume();
+            JOptionPane.showMessageDialog(null, "you must enter only number..","error",JOptionPane.OK_OPTION);
+
+        }
+    }
+
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        
+    }
+
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        
     }
         
 

@@ -16,7 +16,7 @@ public class App {
         
         // }
         
-       // Menu m=new Menu();
+        Menu m=new Menu();
         //LogIn.doLogin();
        // Cart c=new Cart();
         

@@ -1,10 +1,3 @@
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.util.ArrayList;
-
-import javax.swing.JOptionPane;
 
 public class App {
     
@@ -14,7 +7,7 @@ public class App {
        // CreatAccount d =new CreatAccount();
         // ChoosePic c= new ChoosePic();
        
-        //  new AddMeal();
+         new AddMeal();
         //  new AddMeal();
         //  new AddMeal();
         // try {
@@ -23,7 +16,7 @@ public class App {
         
         // }
         
-         Menu m=new Menu();
+       // Menu m=new Menu();
         //LogIn.doLogin();
        // Cart c=new Cart();
         

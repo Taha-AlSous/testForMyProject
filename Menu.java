@@ -3,12 +3,16 @@ import javax.swing.border.LineBorder;
 import java.text.*;
 import java.util.ArrayList;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 
-public class Menu extends JFrame implements MouseListener{
+public class Menu extends JFrame implements MouseListener,ActionListener,KeyListener{
 
     private JLayeredPane layeredPane;
 
@@ -29,8 +33,8 @@ public class Menu extends JFrame implements MouseListener{
     private JLabel stagePriceLabel;
     private JLabel stageIngredientsLabel;
 
-    private NumberFormat NumberFormat;
     private JTextField amountTextField;
+    private JLabel amountLabel;
 
     private JButton addToCart;
     private JButton goToCart;
@@ -162,18 +166,25 @@ public class Menu extends JFrame implements MouseListener{
         stageIngredientsLabel.addMouseListener(this);
         layeredPane.add(stageIngredientsLabel,JLayeredPane.PALETTE_LAYER);
         // Number Field
-        NumberFormat= NumberFormat.getIntegerInstance();
-        amountTextField= new JFormattedTextField(NumberFormat);
-        amountTextField.setColumns(10);
-        amountTextField.setBounds(125, 535, 250, 50);
+        amountLabel= new JLabel();
+        amountLabel.setBounds(125, 535, 120, 50);
+        amountLabel.setForeground(new Color(242,186,0));
+        amountLabel.setBackground(new Color(31,25,27));
+        amountLabel.setBorder(new LineBorder(new Color(242,186,0),3));
+        amountLabel.setFont(new Font("Comic Sans MS",Font.BOLD,20));
+        amountLabel.setHorizontalAlignment((int) CENTER_ALIGNMENT);
+        amountLabel.setText("Amount: ");
+        layeredPane.add(amountLabel,JLayeredPane.PALETTE_LAYER);
+
+        amountTextField= new JFormattedTextField();
+        amountTextField.setBounds(250, 535, 125, 50);
         amountTextField.setForeground(new Color(242,186,0));
         amountTextField.setBackground(new Color(31,25,27));
         amountTextField.setBorder(new LineBorder(new Color(242,186,0),3));
         amountTextField.setFont(new Font("Comic Sans MS",Font.BOLD,20));
         amountTextField.setHorizontalAlignment((int) CENTER_ALIGNMENT);
         amountTextField.setCaretColor(Color.white);
-        amountTextField.setToolTipText("amount");
-        amountTextField.setText("Amount: ");
+        amountTextField.addKeyListener(this);
         layeredPane.add(amountTextField,JLayeredPane.PALETTE_LAYER);
         // add to cart
         addToCart = new JButton();
@@ -214,7 +225,7 @@ public class Menu extends JFrame implements MouseListener{
     public void mouseClicked(MouseEvent e) {
         if (e.getSource()==stageIngredientsLabel)
         {
-            JOptionPane.showMessageDialog(null, stageMeal.combonent,"combonent",JOptionPane.OK_OPTION);
+            JOptionPane.showMessageDialog(null, stageMeal.combonent,"combonent",JOptionPane.INFORMATION_MESSAGE);
 
         }
         for (JLabel Label : allMealsLabels) {
@@ -260,6 +271,39 @@ public class Menu extends JFrame implements MouseListener{
     public void mouseExited(MouseEvent e) {
         
        
+    }
+
+
+
+    //key listener
+    @Override
+    public void keyTyped(KeyEvent e) {
+        char c=e.getKeyChar();
+        if (!Character.isDigit(c)&& c!='\b'&& c!=KeyEvent.VK_DELETE){
+            e.consume();
+            JOptionPane.showMessageDialog(null, "you must enter only number..","error",JOptionPane.OK_OPTION);
+
+        }
+           
+    }
+
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+       
+    }
+
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+       
+    }
+
+
+    // action listener
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        
     }
 
 }

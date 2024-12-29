@@ -1,20 +1,31 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 
 import javax.swing.*;
 
 public class AddMeal extends JFrame implements ActionListener{
-private JLabel mainBG;
+        private JLabel mainBG;
         private ImageIcon posterImage;
 
         private JLabel logoLabel;
         private ImageIcon logoImage;
 
+        private JButton addMeal;
+        private JButton deleteMeal;
+        private JButton editMeal;
+
         private JLayeredPane layeredPane;
 
         private JLabel nameLabel;
         private JTextField nameTextField;
+        private JButton sercheButton;
+
         private JLabel priceLabel;
         private JTextField priceTextField;
         private JLabel combonentLabel;
@@ -23,6 +34,8 @@ private JLabel mainBG;
         private JButton chooseMealImage;
         private JButton confirmButton;
         private JButton gotoMenuButton;
+        private int whatIsTheCase=1;
+        private Meal myMeal;
 
 
         public AddMeal(){
@@ -30,7 +43,11 @@ private JLabel mainBG;
             this.setSize(500,750);
             this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             this.setResizable(false);
-    
+
+            addMeal= new JButton("Add Meal");
+            deleteMeal= new JButton("Delete Meal");
+            editMeal= new JButton("Edit Meal");
+
             layeredPane=new JLayeredPane();
     
             mainBG = new JLabel();
@@ -41,6 +58,8 @@ private JLabel mainBG;
 
             nameLabel = new JLabel("name:");
             nameTextField = new JTextField();
+            sercheButton= new JButton("serche");
+
             priceLabel = new JLabel("price:");
             priceTextField = new JTextField();
             combonentLabel = new JLabel("combonent:");
@@ -49,7 +68,10 @@ private JLabel mainBG;
 
             chooseMealImage= new JButton("choose Meal Image");
             confirmButton= new JButton("confirm");
-            gotoMenuButton= new JButton("cnfirm and go to Menu");
+            gotoMenuButton= new JButton("cnofirm and go to Menu");
+
+             myMeal=new Meal();
+
 
 
             ///////////
@@ -64,6 +86,36 @@ private JLabel mainBG;
             logoLabel.setIcon(logoImage);
             layeredPane.add(logoLabel,JLayeredPane.PALETTE_LAYER);
 
+            //addMeal
+            addMeal.setBounds(273, 50, 130, 30);
+            addMeal.addActionListener(this);
+            addMeal.setForeground(new Color(242,186,0));
+            addMeal.setBackground(new Color(150,50,10));
+            addMeal.setBorderPainted(false);
+            addMeal.setFont(new Font("Comic Sans MS",Font.BOLD,15));
+            addMeal.setFocusPainted(false);
+            layeredPane.add(addMeal,JLayeredPane.PALETTE_LAYER);
+
+            //deleteMeal
+            deleteMeal.setBounds(200, 100, 125, 30);
+            deleteMeal.addActionListener(this);
+            deleteMeal.setForeground(new Color(242,186,0));
+            deleteMeal.setBackground(new Color(150,50,10));
+            deleteMeal.setBorderPainted(false);
+            deleteMeal.setFont(new Font("Comic Sans MS",Font.BOLD,15));
+            deleteMeal.setFocusPainted(false);
+            layeredPane.add(deleteMeal,JLayeredPane.PALETTE_LAYER);
+
+            //editMeal
+            editMeal.setBounds(350, 100, 125, 30);
+            editMeal.addActionListener(this);
+            editMeal.setForeground(new Color(242,186,0));
+            editMeal.setBackground(new Color(150,50,10));
+            editMeal.setBorderPainted(false);
+            editMeal.setFont(new Font("Comic Sans MS",Font.BOLD,15));
+            editMeal.setFocusPainted(false);
+            layeredPane.add(editMeal,JLayeredPane.PALETTE_LAYER);
+
             // nameLabel
             nameLabel.setBounds(50, 150, 100, 100);
             nameLabel.setForeground(Color.white);
@@ -74,6 +126,19 @@ private JLabel mainBG;
             nameTextField.setForeground(Color.BLACK);
             nameTextField.setFont(new Font("Comic Sans MS",Font.BOLD,15));
             layeredPane.add(nameTextField,JLayeredPane.PALETTE_LAYER);
+
+            //sercheButton
+            sercheButton.setBounds(380, 190, 100, 30);
+            sercheButton.addActionListener(this);
+            sercheButton.setForeground(new Color(31,25,27));
+            sercheButton.setBackground(new Color(242,186,0));
+            sercheButton.setBorderPainted(false);
+            sercheButton.setFont(new Font("Comic Sans MS",Font.BOLD,15));
+            sercheButton.setFocusPainted(false);
+            sercheButton.setVisible(false);
+            layeredPane.add(sercheButton,JLayeredPane.PALETTE_LAYER);
+
+
             //priceLabel
             priceLabel.setBounds(50, 200, 100, 100);
             priceLabel.setForeground(Color.white);
@@ -134,22 +199,197 @@ private JLabel mainBG;
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            if (e.getSource()==addMeal) {
+                whatIsTheCase=1;
+                sercheButton.setVisible(false);
+                priceLabel.setVisible(true);
+                priceTextField.setVisible(true);
+                combonentLabel.setVisible(true);
+                combonentTextField.setVisible(true);
+                chooseMealImage.setVisible(true);
+            }
+            if (e.getSource()==deleteMeal) {
+                whatIsTheCase=2;
+                sercheButton.setVisible(false);
+                priceLabel.setVisible(false);
+                priceTextField.setVisible(false);
+                combonentLabel.setVisible(false);
+                combonentTextField.setVisible(false);
+                chooseMealImage.setVisible(false);
+                
+            }
+            if (e.getSource()==editMeal) {
+                whatIsTheCase=3;
+                sercheButton.setVisible(true);
+                priceLabel.setVisible(false);
+                priceTextField.setVisible(false);
+                combonentLabel.setVisible(false);
+                combonentTextField.setVisible(false);
+                chooseMealImage.setVisible(false);
+            }
+            if (e.getSource()==sercheButton) {
+                whatIsTheCase=3;
+                myMeal=this.editSerch(nameTextField.getText());
+                System.out.println(myMeal.name+"    "+myMeal.price);
+
+                
+            }
+            
+
+            //chooseMealImage button
             if (e.getSource()==chooseMealImage)
             {
                 new ChoosePic();
             }
-            else if (e.getSource()==confirmButton)
+
+
+//////////////////////////////////////////
+
+            //confirm button
+            if (e.getSource()==confirmButton)
             {
-                Meal.Add(nameTextField.getText(), priceTextField.getText(), combonentTextField.getText(), ChoosePic.getmyImage());
-                this.setVisible(false);
+                if (whatIsTheCase==1)
+                {
+                    Meal.Add(nameTextField.getText(), priceTextField.getText(), combonentTextField.getText(), ChoosePic.getmyImage());
+                    this.setVisible(false);
+                }
+                else if (whatIsTheCase==2)
+                {
+                    this.delete(nameTextField.getText());
+                    System.out.println("22");
+                    this.setVisible(false);
+                
+                }
+                else if (whatIsTheCase==3)
+                {
+                    mealeditenformation(myMeal, new Meal(nameTextField.getText(), priceTextField.getText(),combonentTextField.getText(), ChoosePic.getmyImage()));
+                    this.setVisible(false);
+                
+                }
+                
+                
             }
-            else if (e.getSource()==gotoMenuButton)
-            {
-                Meal.Add(nameTextField.getText(), priceTextField.getText(), combonentTextField.getText(), ChoosePic.getmyImage());
-                new Menu();
-                this.setVisible(false);
+
+
+
+
+
+            // if (e.getSource()==gotoMenuButton)
+            // {
+            //     Meal.Add(nameTextField.getText(), priceTextField.getText(), combonentTextField.getText(), ChoosePic.getmyImage());
+            //     new Menu();
+            //     this.setVisible(false);
+            // }
+        }
+//////////////////////////////////////////
+
+    public void delete(String nameee){
+         // add meals from file
+        try(
+        FileInputStream file =new FileInputStream("MealsFile.ser");
+        ObjectInputStream in =new ObjectInputStream(file)){
+        Meal.meals= (ArrayList<Meal>) in.readObject();
+        }
+        catch(Exception e){
+        
+        }
+
+        for(Meal meal:Meal.meals) {
+            if (meal.name.equals(nameee)){
+                System.out.println("found");
+                Meal.meals.remove(meal);
+                System.out.println("removed");
+                try(
+                    FileOutputStream file =new FileOutputStream("MealsFile.ser");
+                    ObjectOutputStream out =new ObjectOutputStream(file)){
+                    out.writeObject(Meal.meals);
+                    }
+                    
+                catch(Exception e){
+                }
+            }           
+        }
+    }
+
+
+//////////////////////////////////////////
+    public Meal editSerch(String nameee){
+        //load meals from file
+        try(
+        FileInputStream file =new FileInputStream("MealsFile.ser");
+        ObjectInputStream in =new ObjectInputStream(file)){
+        Meal.meals= (ArrayList<Meal>) in.readObject();
+        }
+        catch(Exception e){
+        
+        }
+
+        for(Meal meal:Meal.meals) {
+            if (meal.name.equals(nameee)){
+                priceLabel.setVisible(true);
+                priceTextField.setVisible(true);
+                combonentLabel.setVisible(true);
+                combonentTextField.setVisible(true);
+                chooseMealImage.setVisible(true);
+                sercheButton.setVisible(false);
+
+                ChoosePic.myImage=meal.image;
+                priceTextField.setText(meal.price);
+                combonentTextField.setText(meal.combonent);
+
+                try(
+                    FileOutputStream file =new FileOutputStream("MealsFile.ser");
+                    ObjectOutputStream out =new ObjectOutputStream(file)){
+                    out.writeObject(Meal.meals);
+                    }
+                    
+                catch(Exception e){
+                }
+                return meal;
             }
         }
+        JOptionPane.showMessageDialog(null, "there are no meal with this name", "not existe", JOptionPane.ERROR_MESSAGE);
+        return null;
+
+    }
+
+
+//////////////////////////////////////////
+
+    public void mealeditenformation(Meal befor,Meal after){
+        //load meals from file
+        try(
+        FileInputStream file =new FileInputStream("MealsFile.ser");
+        ObjectInputStream in =new ObjectInputStream(file)){
+        Meal.meals= (ArrayList<Meal>) in.readObject();
+        }
+        catch(Exception e){
+        
+        }
+        System.out.println(befor.combonent);
+        System.out.println(befor.name);
+        System.out.println(" ");
+        for(int i=0;i<Meal.meals.size();i++) {
+            if (Meal.meals.get(i).name.equals(befor.name)){
+                Meal.meals.get(i).name=after.name;
+                Meal.meals.get(i).price=after.price;
+                Meal.meals.get(i).combonent=after.combonent;
+                Meal.meals.get(i).image=after.image;
+                try(
+                    FileOutputStream file =new FileOutputStream("MealsFile.ser");
+                    ObjectOutputStream out =new ObjectOutputStream(file)){
+                    out.writeObject(Meal.meals);
+                    }
+                    
+                catch(Exception e){
+                }
+                return;
+            }
+        }
+        JOptionPane.showMessageDialog(null, "there are no meal with this name", "not existe", JOptionPane.ERROR_MESSAGE);
+       
+
+    }
         
 
 }
